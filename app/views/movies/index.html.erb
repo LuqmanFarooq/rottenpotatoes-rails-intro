@@ -1,12 +1,12 @@
   <!--  This file is app/views/movies/index.html.erb -->
 <h2>All Movies</h2>
 
-<%= form_tag movies_path, method: :get, id: 'ratings_form' do %>
+<%= form_tag movies_path, method: :get, :id => 'ratings_form' do %>
   Include:
   <% @all_ratings.each do |rating| %>
     <div class="form-check  form-check-inline">
       <%= label_tag "ratings[#{rating}]", rating, class: 'form-check-label' %>
-      <%= check_box_tag "ratings[#{rating}]", 1, @ratings_hash.include?(rating), class: 'form-check-input' %>
+      <%= check_box_tag "ratings[#{rating}]", "1", chosen_rating?(rating), id: "ratings_#{rating}",  class: 'form-check-input' %>
     </div>
   <% end %>
   <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
@@ -15,12 +15,13 @@
 <table class="table table-striped col-md-12" id="movies">
   <thead>
     <tr>
-       <th class="<%= @class_title %>">
-        <%= link_to 'Movie Title', movies_path(:sort => 'title'), :id => 'title_header' , class: @class_title %>
+       <th class="<%= hilite("title") %>">
+        <a href = "<%= movies_path({:sort => 'title'}) %>" id = 'title_header'>Movie Title</a>
       </th>
-      <th>Rating</th>
-      <th class="<%= @class_release_date %>">
-        <%= link_to 'Release Date', movies_path(:sort => 'release_date'), :id => 'release_date_header' , class: @class_release_date %>
+      <th class="<%= hilite("rating") %>">
+        <a href = "<%= movies_path({:sort => 'rating'}) %>">Rating</a>
+      <th class="<%= hilite("release_date") %>">
+        <a href = "<%= movies_path({:sort => 'release_date'}) %>" id = 'release_date_header'>Release Date</a>
       </th>
       <th>More Info</th>
     </tr>
